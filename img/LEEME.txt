@@ -1,0 +1,2 @@
+Carpeta opcional para copias locales de las fotos.
+Ver las instrucciones al principio de js/imagenes.js.

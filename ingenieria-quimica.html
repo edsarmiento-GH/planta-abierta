@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="es-CO">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ingeniería Química | Humanidades</title>
+<meta name="description" content="Qué es la Ingeniería Química, un proceso industrial real (el café soluble), sus cinco fundamentos, un balance de materia interactivo, las operaciones básicas y los reactores.">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="css/estilos.css">
+<style>
+  .banda-oscura { background: var(--azul-noche); color: #fff; padding: 2.25rem 0 2rem; margin-top: 2.5rem; }
+  .banda-oscura h2 { color: #fff; }
+  .banda-oscura .prosa p { color: #dfe5fb; }
+  .unidad { cursor: pointer; }
+  .unidad .cuerpo { fill: rgba(255,255,255,.07); stroke: #fff; stroke-width: 2.5; transition: fill .2s, stroke .2s; }
+  .unidad:hover .cuerpo { fill: rgba(255,255,255,.18); }
+  .unidad.sel .cuerpo { fill: #ffcc00; stroke: #0f1a3d; stroke-width: 3; }
+  .unidad .linea-int { stroke: #fff; }
+  .unidad.sel .linea-int { stroke: #0f1a3d; }
+  .unidad:focus { outline: none; }
+  .unidad:focus-visible .marco-foco { stroke: #ffcc00; stroke-width: 3; }
+  .marco-foco { fill: none; stroke: transparent; }
+  .flujo { fill: none; stroke-width: 7; stroke-linecap: round; }
+  .flujo.anima { stroke-dasharray: 10 9; animation: correr 1.4s linear infinite; }
+  .tubo { fill: none; stroke: rgba(255,255,255,.16); stroke-width: 13; stroke-linecap: round; }
+  @keyframes correr { to { stroke-dashoffset: -38; } }
+  .aspas { transform-origin: 110px 162px; animation: girar 5s linear infinite; }
+  @keyframes girar { to { transform: rotate(360deg); } }
+  .vapor { fill: none; stroke: rgba(255,255,255,.75); stroke-width: 2.5; stroke-linecap: round; animation: subir 2.4s ease-in-out infinite; }
+  @keyframes subir { 0% { transform: translateY(6px); opacity: 0; } 40% { opacity: 1; } 100% { transform: translateY(-10px); opacity: 0; } }
+  @media (prefers-reduced-motion: reduce) { .flujo.anima, .aspas, .vapor { animation: none; } }
+  .rotulo { font: 700 13px var(--sans); fill: rgba(255,255,255,.85); }
+  .rotulo-num { font: 700 18px var(--display); fill: #0f1a3d; }
+  @media (max-width: 40rem) { .diagrama-portada .rotulo { display: none; } }
+  .diagrama-portada { margin: 1.25rem 0 0; }
+  .ilus-proceso { margin: 1.5rem 0 0; max-width: 36rem; }
+  .ilus-proceso svg { display: block; width: 100%; height: auto; }
+  .ilus-proceso text { font: 700 17px var(--sans); fill: var(--azul-noche); }
+  .ilus-proceso text.sub { font-weight: 400; font-size: 14.5px; fill: var(--tinta-2); }
+  @media (max-width: 30rem) { .ilus-proceso text { font-size: 22px; } .ilus-proceso text.sub { display: none; } .ilus-proceso svg { margin-bottom: -1.2rem; } }
+  .fundamentos { list-style: none; padding: 0; margin: 1.25rem 0 0; display: grid; gap: .75rem; }
+  @media (min-width: 56rem) { .fundamentos { grid-template-columns: repeat(5, 1fr); } }
+  .fundamentos li { margin: 0; background: #fff; border: 1px solid var(--linea); border-top: 5px solid var(--azul); border-radius: 0 0 var(--radio) var(--radio); padding: .75rem .85rem; font-size: .93rem; line-height: 1.45; }
+  .fundamentos b { display: block; font: 700 1.35rem/1.1 var(--display); color: var(--azul-noche); }
+  .fundamentos i { display: block; font-style: normal; font-weight: 700; color: var(--azul); margin: .2rem 0 .35rem; }
+  .fundamentos .ilus { display: block; width: 3.5rem; height: 3.5rem; margin: .1rem 0 .6rem; }
+  /* en celular el ícono va a la izquierda del texto */
+  @media (max-width: 55.99rem) { .fundamentos li { display: grid; grid-template-columns: 3.5rem 1fr; column-gap: .9rem; align-items: start; } .fundamentos .ilus { grid-row: 1 / span 3; margin: 0; } .fundamentos li > :not(.ilus) { grid-column: 2; } }
+  .barras-balance { display: grid; gap: .5rem; margin-top: 1rem; }
+  .barras-balance .fila-b { display: grid; grid-template-columns: 6.5rem 1fr; gap: .6rem; align-items: center; font-size: .9rem; }
+  .barras-balance .pista { display: flex; height: 2rem; border-radius: 6px; overflow: hidden; background: #eef0f6; }
+  .barras-balance .pista span { display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 700; font-size: .82rem; white-space: nowrap; overflow: hidden; transition: width .25s; }
+  .b-agua { background: #4f86d9; }
+  .b-solido { background: #7a4a28; }
+  .b-humedad { background: #9fc0ee; color: #0f1a3d !important; }
+</style>
+</head>
+<body data-bloque="q">
+<a class="saltar" href="#contenido">Saltar al contenido</a>
+<header id="cabecera"></header>
+
+<main id="contenido">
+  <header class="encabezado-estacion contenedor">
+    <div class="fila">
+      <div class="circulo" aria-hidden="true"></div>
+      <div>
+        <p class="bloque-nombre"></p>
+        <h1>Ingeniería Química</h1>
+        <p class="entradilla">La química descubre qué reacciones son posibles. La Ingeniería Química las lleva a una planta que funciona día y noche, sin accidentes y a un costo que alguien esté dispuesto a pagar.</p>
+        <p class="meta-estacion"></p>
+      </div>
+    </div>
+  </header>
+
+  <section class="contenedor" id="que-es">
+    <div class="prosa">
+      <h2>Qué es</h2>
+      <p>Según el módulo, la Ingeniería Química usa la física y la química para <strong>diseñar y operar procesos a escala industrial</strong>: alimentos, energía, agua, medicamentos, materiales. Un <strong>proceso químico</strong> convierte materias primas en productos con una cadena de pasos. Algunos son reacciones; la mayoría son pasos físicos para separar y purificar.</p>
+    </div>
+    <figure class="ilus-proceso">
+      <svg viewBox="0 0 605 178" role="img" aria-labelledby="t-ilus-proceso">
+        <title id="t-ilus-proceso">Un proceso químico en cuatro pasos: materias primas, reacción, separación y producto.</title>
+        <g fill="none" stroke="#0f1a3d" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+          <g transform="translate(31 0)"><!-- materias primas: dos bultos -->
+          <path d="M22 104C16 82 20 62 30 52H56C66 62 70 82 64 104Z" fill="#efe3cc"/><path d="M34 52L30 44M52 52L56 44M30 44H56"/>
+          <path d="M56 104C52 88 55 74 63 66H83C91 74 94 88 90 104Z" fill="#efe3cc"/><path d="M66 66L63 59H83L80 66"/>
+          <ellipse cx="38" cy="82" rx="5" ry="7" fill="#6b3f1f" stroke="none"/><ellipse cx="50" cy="90" rx="5" ry="7" fill="#6b3f1f" stroke="none"/><ellipse cx="74" cy="88" rx="4.5" ry="6.5" fill="#6b3f1f" stroke="none"/>
+          <path d="M8 104H100"/></g>
+          <!-- flechas -->
+          <path d="M146 74H182M175 67L182 74L175 81"/><path d="M276 74H334M327 67L334 74L327 81"/><path d="M420 74H480M473 67L480 74L473 81"/>
+          <g transform="translate(38 0)"><!-- reacción: reactor con agitador -->
+          <rect x="182" y="18" width="20" height="12" rx="2" fill="#ffcc00"/><path d="M192 30V86M180 86H204"/>
+          <path d="M160 40H224V88Q224 106 206 106H178Q160 106 160 88Z" fill="#fff"/>
+          <path d="M162 62H222V88Q222 104 206 104H178Q162 104 162 88Z" fill="#1438c8" stroke="none"/>
+          <path d="M160 40H224V88Q224 106 206 106H178Q160 106 160 88Z"/><path d="M192 40V86M181 86H203" stroke="#fff"/><path d="M192 30V40"/>
+          <circle cx="174" cy="76" r="2.4" fill="#fff" stroke="none"/><circle cx="210" cy="70" r="2" fill="#fff" stroke="none"/><circle cx="206" cy="94" r="2.4" fill="#fff" stroke="none"/>
+          </g><g transform="translate(59 0)"><!-- separación: columna con platos -->
+          <rect x="302" y="14" width="28" height="92" rx="12" fill="#fff"/>
+          <path d="M306 34H326M306 50H326M306 66H326M306 82H326" stroke-width="1.8"/>
+          <path d="M316 14V6H342V20M337 15L342 20L347 15" /><path d="M316 106V112H342V100M337 105L342 100L347 105" stroke="#1438c8"/>
+          <path d="M290 60H302"/>
+          </g><g transform="translate(74 0)"><!-- producto: frasco con gránulos -->
+          <rect x="424" y="34" width="44" height="10" rx="3" fill="#0f1a3d"/>
+          <path d="M420 48Q420 44 426 44H466Q472 44 472 48V100Q472 106 466 106H426Q420 106 420 100Z" fill="#fff"/>
+          <path d="M423 62H469V100Q469 103 465 103H427Q423 103 423 100Z" fill="#6b3f1f" stroke="none"/>
+          <rect x="430" y="74" width="32" height="16" rx="2" fill="#ffcc00"/>
+          <path d="M420 48Q420 44 426 44H466Q472 44 472 48V100Q472 106 466 106H426Q420 106 420 100Z"/></g>
+        </g>
+        <g class="rotulos" text-anchor="middle">
+          <text x="85" y="138">Materias primas</text><text x="230" y="138">Reacción</text><text x="375" y="138">Separación</text><text x="520" y="138">Producto</text>
+          <text class="sub" x="85" y="160">lo que entra</text><text class="sub" x="230" y="160">cambia la molécula</text><text class="sub" x="375" y="160">separa y purifica</text><text class="sub" x="520" y="160">lo que sale</text>
+        </g>
+      </svg>
+    </figure>
+  </section>
+
+  <section class="banda-oscura" id="cafe">
+    <div class="contenedor">
+      <div class="prosa">
+        <h2>Un proceso real: del café verde al frasco</h2>
+        <p>Así trabaja la planta de Buencafé en Chinchiná. Toca cada etapa: ¿en cuál cambia de verdad la identidad de las sustancias?</p>
+      </div>
+      <figure class="diagrama-portada" aria-labelledby="pie-diagrama">
+        <svg viewBox="0 0 1100 300" role="group" aria-label="Diagrama del proceso del café soluble en cinco etapas">
+          <path class="tubo" d="M8 162H48"/><path class="tubo" d="M176 162H300"/><path class="tubo" d="M362 162H505"/><path class="tubo" d="M597 162H700"/><path class="tubo" d="M842 162H945"/>
+          <path class="flujo anima" stroke="#9fbf4a" d="M8 162H48"/>
+          <path class="flujo anima" stroke="#c98a4b" d="M176 162H300"/>
+          <path class="flujo anima" stroke="#a5683a" d="M362 162H505"/>
+          <path class="flujo anima" stroke="#7a4a28" d="M597 162H700"/>
+          <path class="flujo anima" stroke="#e0b070" stroke-dasharray="3 9" d="M842 162H945"/>
+          <path class="tubo" d="M331 22V70" style="stroke-width:10"/>
+          <path class="flujo anima" stroke="#5aa6ff" style="stroke-width:5" d="M331 22V70"/>
+          <text class="rotulo" x="345" y="34">agua caliente</text>
+          <path d="M331 240V280H470" fill="none" stroke="#c98a4b" stroke-width="3" stroke-dasharray="6 6"/>
+          <text class="rotulo" x="478" y="285">café ya usado: se quema en la caldera para hacer vapor</text>
+          <text class="rotulo" x="0" y="116">café verde</text>
+
+          <g class="unidad" data-etapa="0" tabindex="0" role="button" aria-label="Etapa 1: tostión y molienda">
+            <rect class="marco-foco" x="36" y="62" width="152" height="176" rx="12"/>
+            <path class="cuerpo" d="M88 82h44l-10 34h-24z"/>
+            <circle cx="104" cy="98" r="4" fill="#9fbf4a"/><circle cx="115" cy="95" r="4" fill="#9fbf4a"/><circle cx="110" cy="105" r="4" fill="#9fbf4a"/>
+            <rect class="cuerpo" x="48" y="122" width="126" height="80" rx="40"/>
+            <g class="aspas linea-int" stroke-width="2.5"><path d="M110 132V192M80 162H140M89 141l42 42M131 141l-42 42"/></g>
+            <circle cx="110" cy="162" r="6" fill="#ffcc00"/>
+            <path d="M92 222c4-10 10-10 8-18 8 6 10 12 6 18zM114 222c4-10 10-10 8-18 8 6 10 12 6 18z" fill="#ff8a3d"/>
+            <circle cx="56" cy="80" r="15" fill="#ffcc00"/><text class="rotulo-num" x="56" y="86" text-anchor="middle">1</text>
+          </g>
+          <g class="unidad" data-etapa="1" tabindex="0" role="button" aria-label="Etapa 2: extracción">
+            <rect class="marco-foco" x="282" y="56" width="98" height="196" rx="12"/>
+            <rect class="cuerpo" x="300" y="70" width="62" height="170" rx="10"/>
+            <path class="linea-int" d="M306 110h50M306 124h50M306 138h50M306 152h50M306 166h50M306 180h50M306 194h50" stroke-width="2" stroke-dasharray="3 4"/>
+            <circle cx="300" cy="60" r="15" fill="#ffcc00"/><text class="rotulo-num" x="300" y="66" text-anchor="middle">2</text>
+          </g>
+          <g class="unidad" data-etapa="2" tabindex="0" role="button" aria-label="Etapa 3: concentración">
+            <rect class="marco-foco" x="492" y="62" width="118" height="176" rx="12"/>
+            <rect class="cuerpo" x="505" y="104" width="92" height="118" rx="46"/>
+            <path class="linea-int" d="M515 186h72" stroke-width="2"/>
+            <path class="linea-int" d="M520 196c10-6 20 6 30 0s20 6 30 0" stroke-width="2" fill="none"/>
+            <path class="vapor" d="M538 92c-6-8 6-12 0-20M552 92c-6-8 6-12 0-20M566 92c-6-8 6-12 0-20"/>
+            <circle cx="510" cy="80" r="15" fill="#ffcc00"/><text class="rotulo-num" x="510" y="86" text-anchor="middle">3</text>
+          </g>
+          <g class="unidad" data-etapa="3" tabindex="0" role="button" aria-label="Etapa 4: liofilización">
+            <rect class="marco-foco" x="688" y="62" width="166" height="176" rx="12"/>
+            <rect class="cuerpo" x="700" y="98" width="142" height="124" rx="10"/>
+            <path class="linea-int" d="M714 134h114M714 162h114M714 190h114" stroke-width="2"/>
+            <g stroke="#9fd0ff" stroke-width="2" stroke-linecap="round"><path d="M771 112v14M764 115l14 8M778 115l-14 8"/></g>
+            <path class="vapor" d="M800 88c-6-8 6-12 0-20M814 88c-6-8 6-12 0-20"/>
+            <text class="rotulo" x="722" y="62">vacío</text>
+            <circle cx="706" cy="80" r="15" fill="#ffcc00"/><text class="rotulo-num" x="706" y="86" text-anchor="middle">4</text>
+          </g>
+          <g class="unidad" data-etapa="4" tabindex="0" role="button" aria-label="Etapa 5: envasado">
+            <rect class="marco-foco" x="930" y="62" width="160" height="176" rx="12"/>
+            <rect x="972" y="96" width="76" height="16" rx="4" fill="#ffcc00"/>
+            <path class="cuerpo" d="M966 116h88v94a14 14 0 0 1-14 14h-60a14 14 0 0 1-14-14z"/>
+            <path d="M970 150h80v58a12 12 0 0 1-12 12h-56a12 12 0 0 1-12-12z" fill="#a5683a" opacity=".9"/>
+            <circle cx="980" cy="160" r="2.5" fill="#f0d2a0"/><circle cx="1000" cy="172" r="2.5" fill="#f0d2a0"/><circle cx="1024" cy="164" r="2.5" fill="#f0d2a0"/><circle cx="1036" cy="186" r="2.5" fill="#f0d2a0"/><circle cx="990" cy="196" r="2.5" fill="#f0d2a0"/><circle cx="1014" cy="204" r="2.5" fill="#f0d2a0"/>
+            <circle cx="956" cy="80" r="15" fill="#ffcc00"/><text class="rotulo-num" x="956" y="86" text-anchor="middle">5</text>
+          </g>
+        </svg>
+        <figcaption id="pie-diagrama" class="solo-lector">Las cinco etapas del café soluble: tostión y molienda, extracción, concentración, liofilización y envasado.</figcaption>
+      </figure>
+<div class="etapas-cafe" role="group" aria-label="Elige una etapa">
+        <button type="button" data-etapa="0" aria-pressed="false"><span>Etapa 1</span>Tostión y molienda</button>
+        <button type="button" data-etapa="1" aria-pressed="false"><span>Etapa 2</span>Extracción</button>
+        <button type="button" data-etapa="2" aria-pressed="false"><span>Etapa 3</span>Concentración</button>
+        <button type="button" data-etapa="3" aria-pressed="false"><span>Etapa 4</span>Liofilización</button>
+        <button type="button" data-etapa="4" aria-pressed="false"><span>Etapa 5</span>Envasado</button>
+      </div>
+      <div class="leyenda-etapa" id="leyenda-etapa" aria-live="polite">
+        <p><strong>Toca una etapa del diagrama</strong> para ver qué le pasa al café en ella. Fíjate en cuál cambia de verdad la identidad de las sustancias.</p>
+      </div>
+      <figure class="video" data-youtube="o5hbQmI28aA" data-titulo="Café liofilizado por Buencafé" data-canal="Buencafé" data-leyenda="Buencafé muestra en una animación corta el mismo proceso del diagrama, del grano verde al frasco."></figure>
+    </div>
+  </section>
+
+  <section class="contenedor" id="industrial">
+    <div class="prosa">
+      <h2>Qué lo vuelve industrial</h2>
+      <p>Un proceso se vuelve industrial cuando trabaja en toneladas, sin parar y con un producto que se pueda vender. Puede operar de forma <strong>continua</strong> (una refinería) o <strong>por lotes</strong> (una cervecería).</p>
+      <p>Y escalar no es multiplicar la receta. Si un reactor crece al doble en cada medida, su volumen, y con él el calor de la reacción, se multiplica por 8, pero la pared por donde sale ese calor solo por 4. Por eso entre el laboratorio y la industria siempre hay una <strong>planta piloto</strong>.</p>
+    </div>
+    <div class="dos-fotos">
+      <figure class="foto" data-foto="cafe-soluble-1918" data-leyenda="Percoladores de una fábrica de café soluble en Nueva York, hacia 1918: tres baterías de 21 equipos. Es la extracción de la etapa 2, ya en escala industrial."></figure>
+      <figure class="foto" data-foto="cafe-granulos" data-leyenda="El café soluble en gránulos, el producto que llega al frasco."></figure>
+    </div>
+  </section>
+
+  <section class="contenedor" id="fundamentos">
+    <div class="prosa">
+      <h2>Cinco fundamentos, cinco preguntas</h2>
+      <p>Cada uno responde una pregunta sobre el proceso.</p>
+    </div>
+    <ol class="fundamentos">
+      <li><img class="ilus" src="img/iconos/q-balances.svg" alt="" width="64" height="64"><b>Balances</b><i>¿Qué entra y qué sale?</i><span>Llevan la cuenta de la masa y la energía que atraviesan el proceso.</span></li>
+      <li><img class="ilus" src="img/iconos/q-equilibrio.svg" alt="" width="64" height="64"><b>Equilibrio</b><i>¿Hasta dónde se puede llegar?</i><span>La termodinámica marca el techo. En Manizales el agua hierve cerca de 93 °C.</span></li>
+      <li><img class="ilus" src="img/iconos/q-transporte.svg" alt="" width="64" height="64"><b>Transporte</b><i>¿Cómo se mueven materia, calor y fluidos?</i><span>Revolver el tinto disuelve el azúcar más rápido.</span></li>
+      <li><img class="ilus" src="img/iconos/q-cinetica.svg" alt="" width="64" height="64"><b>Cinética</b><i>¿Qué tan rápido reacciona?</i><span>La velocidad decide el tamaño del reactor.</span></li>
+      <li><img class="ilus" src="img/iconos/q-separaciones.svg" alt="" width="64" height="64"><b>Separaciones</b><i>¿Cómo obtengo la pureza que necesito?</i><span>Destilar, filtrar o evaporar aprovechan diferencias entre los componentes.</span></li>
+    </ol>
+    <p class="ecuacion">Entrada − Salida + Generación − Consumo = Acumulación<small>La ecuación de conservación, para la materia y la energía. En régimen estacionario la acumulación vale cero.</small></p>
+
+    <div class="lab" data-nombre="Laboratorio">
+      <h3>El balance del café</h3>
+      <p class="consigna">Al liofilizador entran 1.000 kg de extracto. ¿Cuánto café sale? Los sólidos no se pierden: entran y salen los mismos kilos.</p>
+      <div class="lab-rejilla">
+        <div>
+          <div class="control"><label for="b-solidos">Sólidos en el extracto <output id="o-b-solidos"></output></label><input type="range" id="b-solidos" min="15" max="50" step="1" value="30"></div>
+          <div class="control"><label for="b-humedad">Humedad del café final <output id="o-b-humedad"></output></label><input type="range" id="b-humedad" min="1" max="8" step="0.5" value="3"></div>
+          <dl class="lectura">
+            <div><dt>Café soluble</dt><dd id="r-b-prod">—</dd></div>
+            <div><dt>Agua que se quita</dt><dd id="r-b-agua">—</dd></div>
+          </dl>
+        </div>
+        <div>
+          <div class="barras-balance" aria-hidden="true">
+            <div class="fila-b"><span>Entra (extracto)</span><div class="pista"><span class="b-solido" id="bb-s1"></span><span class="b-agua" id="bb-a1"></span></div></div>
+            <div class="fila-b"><span>Sale (agua)</span><div class="pista"><span class="b-agua" id="bb-a2"></span></div></div>
+            <div class="fila-b"><span>Sale (café)</span><div class="pista"><span class="b-solido" id="bb-s3"></span><span class="b-humedad" id="bb-h3"></span></div></div>
+          </div>
+          <div class="retro info" id="msg-balance" aria-live="polite"></div>
+        </div>
+      </div>
+      <p class="nota mb-0">Balance de sólidos: 1.000 × fracción de sólidos = producto × (1 − humedad).</p>
+    </div>
+  </section>
+
+  <section class="contenedor" id="operaciones">
+    <div class="prosa">
+      <h2>Las piezas de toda planta: operaciones y reactores</h2>
+      <p>Destilación, evaporación, secado, extracción y filtración se repiten en industrias muy distintas, así que se estudian una vez como <strong>operaciones básicas</strong> y se combinan como piezas: una destilación se calcula igual en una refinería que en una licorera. La transformación química ocurre en el <strong>reactor</strong>, un tanque agitado o un tubo, a menudo con un <strong>catalizador</strong> que acelera la reacción sin consumirse.</p>
+      <p>En el amoníaco, base de los fertilizantes, el equilibrio mejora en frío pero la reacción se vuelve lentísima, así que el proceso Haber-Bosch busca un punto medio entre 400 y 500 °C.</p>
+    </div>
+    <div class="dos-fotos altas">
+      <figure class="foto" data-foto="columnas" data-leyenda="Columnas de una planta de destilación. Adentro, el vapor sube, el líquido baja y en cada etapa los componentes se separan un poco más."></figure>
+      <figure class="foto" data-foto="reactor-haber" data-leyenda="Reactor de alta presión para amoníaco construido por BASF en 1921. Sus paredes de acero debían aguantar cientos de atmósferas."></figure>
+    </div>
+  </section>
+
+  <section class="contenedor">
+    <div class="para-llevar">
+      <h2>Para llevarse</h2>
+      <ul>
+        <li>Un proceso químico industrial es una cadena de operaciones; la reacción suele ser solo una de ellas.</li>
+        <li>Escalar no es multiplicar la receta: el volumen crece más rápido que la superficie.</li>
+        <li>Balances, equilibrio, transporte, cinética y separaciones responden las cinco preguntas de cualquier proceso.</li>
+      </ul>
+    </div>
+    <p class="cita-fuente">Fuentes: Jarabo, F. y García, F. J., <em>Conceptos de Ingeniería Química</em> (documento del módulo), temas 1 a 9; Grupo 2 (2026), presentaciones del módulo; Levenspiel, O., <em>Ingeniería de las reacciones químicas</em>, Limusa Wiley; Agronegocios (2023), «La fábrica de liofilizado de Chinchiná, Buencafé, cumple 50 años con cifras significativas»; Federación Nacional de Cafeteros (2023).</p>
+  </section>
+
+  <div id="cierre"></div>
+</main>
+
+<footer id="pie"></footer>
+<script src="js/imagenes.js"></script>
+<script src="js/sitio.js"></script>
+<script src="js/ingenieria-quimica.js"></script>
+</body>
+</html>

@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="es-CO">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ingeniería Industrial | Humanidades</title>
+<meta name="description" content="Qué es la Ingeniería Industrial, el enfoque ingenieril en seis etapas, sus áreas de trabajo y un laboratorio de distribución en planta.">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="css/estilos.css">
+<style>
+  .pasos-enfoque { list-style: none; padding: 0; margin: 1.25rem 0 0; display: flex; flex-wrap: wrap; gap: .5rem; counter-reset: paso; }
+  .pasos-enfoque li { margin: 0; counter-increment: paso; background: #fff; border: 2px solid var(--minio); border-radius: 999px; padding: .4rem .9rem .4rem .45rem; font-weight: 700; color: var(--azul-noche); display: flex; align-items: center; gap: .5rem; }
+  .pasos-enfoque li::before { content: counter(paso); width: 1.6rem; height: 1.6rem; border-radius: 50%; background: var(--minio); color: #fff; display: grid; place-items: center; font: 700 1rem/1 var(--display); }
+  .areas { display: grid; gap: 1rem; margin-top: 1.25rem; }
+  @media (min-width: 46rem) { .areas { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 70rem) { .areas { grid-template-columns: repeat(3, 1fr); } }
+  .areas .ficha { border-top: 5px solid var(--minio); border-radius: 0 0 var(--radio) var(--radio); }
+  .areas .ficha { display: grid; grid-template-columns: 3.5rem 1fr; column-gap: .9rem; align-content: start; }
+  .areas .ficha .ilus { width: 3.5rem; height: 3.5rem; grid-row: 1; }
+  .areas .ficha h3 { font-size: 1.45rem; margin: 0; align-self: center; }
+  .areas .ficha p, .areas .ficha .dato { grid-column: 1 / -1; }
+  .areas .ficha p { margin: .65rem 0 0; }
+  .areas .ficha .dato { display: block; margin-top: .6rem; font-size: .9rem; color: var(--minio-oscuro); font-weight: 700; }
+  .camino-grano { list-style: none; padding: 0; margin: .5rem 0 .9rem; display: flex; flex-wrap: wrap; gap: .35rem .3rem; font-size: .92rem; font-weight: 700; color: var(--azul-noche); }
+  .camino-grano li { display: inline-flex; align-items: center; gap: .35rem; }
+  .camino-grano li + li::before { content: "→"; color: var(--minio); margin-right: .05rem; }
+  .camino-grano b { display: inline-grid; place-items: center; width: 1.45rem; height: 1.45rem; border-radius: 50%; background: var(--minio); color: #fff; font: 700 .9rem/1 var(--display); }
+  .rejilla-layout { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 3.6rem 2.4rem; max-width: 33rem; position: relative; z-index: 1; }
+  .rejilla-layout button { position: relative; aspect-ratio: 4 / 3; border-radius: 10px; border: 2px solid var(--azul-noche); background: #fff; font: 700 1rem/1.2 var(--sans); color: var(--azul-noche); cursor: pointer; padding: .4rem; }
+  .rejilla-layout button span { display: block; font: 700 1.9rem/1 var(--display); color: var(--minio); }
+  .rejilla-layout button em { display: block; width: fit-content; margin: .35rem auto 0; font: 700 .72rem/1 var(--sans); font-style: normal; white-space: nowrap; padding: .22rem .5rem; border-radius: 99px; background: var(--azul-noche); color: #fff; }
+  .rejilla-layout button.sel { background: var(--amarillo); }
+  .rejilla-layout button:hover { border-color: var(--minio); }
+  .layout-envoltura { position: relative; max-width: 33rem; }
+  #layout .lectura { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  @media (max-width: 30rem) { #layout .lectura { gap: .45rem; } #layout .lectura div { padding: .5rem .5rem; } #layout .lectura dt { font-size: .74rem; } #layout .lectura dd { font-size: 1.3rem; } }
+  .layout-envoltura svg { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 2; overflow: visible; }
+  @media (max-width: 30rem) { .rejilla-layout { gap: 2.8rem 1.6rem; } .rejilla-layout button { font-size: .78rem; hyphens: auto; } .rejilla-layout button span { font-size: 1.5rem; } .rejilla-layout button em { font-size: .6rem; padding: .18rem .35rem; margin-top: .2rem; } }
+</style>
+</head>
+<body data-bloque="i">
+<a class="saltar" href="#contenido">Saltar al contenido</a>
+<header id="cabecera"></header>
+
+<main id="contenido">
+  <header class="encabezado-estacion contenedor">
+    <div class="fila">
+      <div class="circulo" aria-hidden="true"></div>
+      <div>
+        <p class="bloque-nombre"></p>
+        <h1>Ingeniería Industrial</h1>
+        <p class="entradilla">La Química pregunta cómo transformar la materia. La Industrial pregunta cómo organizar a las personas, las máquinas, los materiales y la información para que esa transformación salga bien, a tiempo y sin desperdicio.</p>
+        <p class="meta-estacion"></p>
+      </div>
+    </div>
+  </header>
+
+  <section class="contenedor" id="que-es">
+    <div class="con-foto">
+    <div class="prosa">
+      <h2>Qué es</h2>
+      <p>La Ingeniería Industrial diseña y mejora sistemas que integran personas, materiales, equipos, información y energía, para que produzcan con menos tiempo, costo y desperdicio, y con mejor calidad. Nació en las fábricas de comienzos del siglo XX con Frederick Taylor, los esposos Gilbreth, Henry Ford y, después, W. Edwards Deming. Para resolver problemas usa el <strong>enfoque ingenieril</strong>, en seis etapas:</p>
+    <ol class="pasos-enfoque" aria-label="Las seis etapas del enfoque ingenieril">
+      <li>Identificar</li><li>Analizar</li><li>Proponer</li><li>Evaluar</li><li>Implementar</li><li>Verificar</li>
+    </ol>
+    </div>
+    <figure class="foto" data-foto="taylor" data-leyenda="Frederick W. Taylor (1856-1915) cronometró el trabajo en las fábricas y publicó <em>Principios de la administración científica</em> en 1911."></figure>
+    </div>
+  </section>
+
+  <section class="contenedor" id="areas">
+    <div class="prosa">
+      <h2>Lo que estudia</h2>
+      <p>Seis áreas del libro de González Ortiz, con una idea de cada una.</p>
+    </div>
+    <div class="areas">
+      <div class="ficha"><img class="ilus" src="img/iconos/i-metodos.svg" alt="" width="64" height="64"><h3>Métodos y tiempos</h3><p>Cómo se hace cada tarea y cuánto debe tardar. La ergonomía adapta el puesto a la persona.</p><span class="dato">Tiempo estándar = tiempo normal + suplementos.</span></div>
+      <div class="ficha"><img class="ilus" src="img/iconos/i-manufactura.svg" alt="" width="64" height="64"><h3>Manufactura y distribución</h3><p>Líneas de ensamble, robots y el orden de las áreas para que el material recorra poco.</p><span class="dato">Lo pruebas en el laboratorio de abajo.</span></div>
+      <div class="ficha"><img class="ilus" src="img/iconos/i-planeacion.svg" alt="" width="64" height="64"><h3>Planeación de la producción</h3><p>Qué producir, cuánto y cuándo. El diagrama de Gantt ordena las tareas en el tiempo.</p><span class="dato">Ruta crítica: las tareas que no pueden atrasarse.</span></div>
+      <div class="ficha"><img class="ilus" src="img/iconos/i-logistica.svg" alt="" width="64" height="64"><h3>Logística</h3><p>Conseguir insumos, guardar el inventario justo y transportar. El cable aéreo de Manizales fue una solución logística.</p><span class="dato">Lote económico: iguala el costo de pedir y el de guardar.</span></div>
+      <div class="ficha"><img class="ilus" src="img/iconos/i-calidad.svg" alt="" width="64" height="64"><h3>Calidad</h3><p>Hacer bien las cosas desde la primera vez, con el ciclo planear, hacer, verificar y actuar.</p><span class="dato">Pareto: pocas causas explican la mayoría de los defectos.</span></div>
+      <div class="ficha"><img class="ilus" src="img/iconos/i-localizacion.svg" alt="" width="64" height="64"><h3>Localización y mantenimiento</h3><p>Dónde poner la planta y cómo mantenerla: correctivo, preventivo o predictivo.</p><span class="dato">OEE = disponibilidad × rendimiento × calidad.</span></div>
+    </div>
+    <div class="dos-fotos">
+      <figure class="foto" data-foto="ford-1913" data-leyenda="La línea de ensamble de Ford en 1913. Al mover el carro hacia el obrero, el tiempo de armar un Modelo T bajó de más de doce horas a cerca de hora y media."></figure>
+      <figure class="foto" data-foto="robots" data-leyenda="Robots que sueldan carrocerías en la planta de BMW en Leipzig, Alemania, en 2005. La idea de la línea es la misma de Ford; ahora la mueven máquinas."></figure>
+    </div>
+    <figure class="video" data-youtube="mhDQovSNn-I" data-titulo="100 años de la línea de ensamble en 100 segundos" data-canal="AutoMotoTV" data-leyenda="Ford celebró en 2013 los cien años de su línea móvil con este repaso de 100 segundos, de 1913 a hoy."></figure>
+  </section>
+
+  <section class="contenedor" id="layout">
+    <figure class="foto angosta" data-foto="tostadora" data-leyenda="Una tostadora de tambor. En el laboratorio de abajo, la tostión es el paso 3 y todo lo demás se acomoda a su alrededor."></figure>
+    <div class="lab" data-nombre="Laboratorio">
+      <h3>Acomoda la tostadora</h3>
+      <p class="consigna">Seis áreas de una planta de café tostado, en módulos de 20 m. El café entra por la recepción y sale por el despacho, y entre las dos pasa por las áreas en este orden:</p>
+      <ol class="camino-grano" aria-label="Orden en que el café pasa por las áreas">
+        <li><b>1</b>Recepción</li><li><b>2</b>Bodega de grano</li><li><b>3</b>Tostión</li><li><b>4</b>Molienda</li><li><b>5</b>Empaque</li><li><b>6</b>Despacho</li>
+      </ol>
+      <p class="consigna">Las flechas siguen ese orden por los pasillos, y son más gruesas cuanto más viajes de montacargas hay. Toca dos áreas para intercambiarlas y acorta el recorrido.</p>
+      <div class="lab-rejilla">
+        <div class="layout-envoltura">
+          <div class="rejilla-layout" id="rejilla-layout" role="group" aria-label="Distribución de la planta"></div>
+          <svg id="svg-layout" aria-hidden="true"></svg>
+        </div>
+        <div>
+          <dl class="lectura mt-0">
+            <div><dt>Recorrido diario</dt><dd id="r-recorrido"></dd></div>
+            <div><dt>El mejor posible</dt><dd id="r-mejor"></dd></div>
+            <div><dt>Intercambios</dt><dd id="r-movs">0</dd></div>
+          </dl>
+          <div class="retro" id="msg-layout" aria-live="polite"></div>
+          <div class="botones" style="margin-top:1rem"><button class="boton sec chico" type="button" id="reiniciar-layout">Volver a la distribución inicial</button></div>
+        </div>
+      </div>
+      <p class="nota mb-0">Recorrido = viajes × distancia entre los centros de los módulos, por los pasillos. Viajes al día en el camino principal: recepción–bodega 20, bodega–tostión 18, tostión–molienda 15, molienda–empaque 15 y empaque–despacho 12. También cuentan unos viajes ocasionales que no se dibujan: recepción–empaque 5, tostión–empaque 4 y bodega–despacho 2.</p>
+    </div>
+  </section>
+
+  <section class="contenedor">
+    <div class="para-llevar">
+      <h2>Para llevarse</h2>
+      <ul>
+        <li>La Ingeniería Industrial organiza el sistema que produce: personas, máquinas, materiales e información.</li>
+        <li>El enfoque ingenieril va de entender el problema a verificar que la solución funcionó.</li>
+        <li>Sus áreas cubren todo el ciclo: el método, la fabricación, el plan, la logística, la calidad y el mantenimiento.</li>
+      </ul>
+    </div>
+    <p class="cita-fuente">Fuentes: González Ortiz, O. (2024), <em>Fundamentos de ingeniería industrial</em>, capítulos 2 a 10, Ecoe Ediciones; Grupo 2 (2026), presentaciones del módulo; Freivalds, A. y Niebel, B., <em>Ingeniería industrial de Niebel: métodos, estándares y diseño del trabajo</em>, McGraw-Hill; Heizer, J. y Render, B., <em>Principios de administración de operaciones</em>, Pearson; Ishikawa, K., <em>¿Qué es el control total de calidad?</em>, Norma; Nakajima, S. (1988), <em>Introduction to TPM</em>, Productivity Press.</p>
+  </section>
+
+  <div id="cierre"></div>
+</main>
+
+<footer id="pie"></footer>
+<script src="js/imagenes.js"></script>
+<script src="js/sitio.js"></script>
+<script src="js/ingenieria-industrial.js"></script>
+</body>
+</html>

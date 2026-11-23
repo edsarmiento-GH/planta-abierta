@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="es-CO">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Optimización, seguridad y medio ambiente | Humanidades</title>
+<meta name="description" content="Criterios, variables y restricciones con un problema de programación lineal; peligro, riesgo, jerarquía de controles y capas de protección; jerarquía de residuos, química verde y norma ambiental.">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="css/estilos.css">
+<style>
+  .lab svg text { font: 400 12px var(--sans); fill: var(--tinta-2); }
+  .pl svg { cursor: crosshair; touch-action: manipulation; }
+  .pl svg .rest { font-weight: 700; }
+  @media (max-width: 40rem) { .lab svg text { font-size: 15px; } }
+  .restricciones { list-style: none; padding: 0; margin: 1rem 0 0; display: grid; gap: .35rem; font-size: .93rem; }
+  .restricciones li { margin: 0; display: flex; justify-content: space-between; gap: .75rem; background: #fff; border: 1px solid var(--linea); border-radius: 8px; padding: .45rem .7rem; }
+  .restricciones li b { font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .restricciones li.justa { border-color: var(--amarillo); background: var(--amarillo-claro); }
+  .restricciones li.rota { border-color: var(--rojo); background: var(--rojo-claro); color: var(--rojo); }
+  .tres-fotos { display: grid; gap: 1.5rem; margin: 1.75rem 0 1.5rem; }
+  .tres-fotos figure.foto { margin: 0; max-width: none; }
+  .tres-fotos figure.foto img { aspect-ratio: 4 / 3; object-fit: cover; }
+  .tres-fotos figcaption b { color: var(--azul-noche); }
+  .tres-fotos figcaption a { display: inline-block; padding: .55rem 0; margin: -.2rem 0 -.3rem; font-weight: 700; }
+  @media (min-width: 46rem) { .tres-fotos { grid-template-columns: repeat(3, 1fr); } }
+  .temas { display: grid; gap: .9rem; margin-top: 1.75rem; }
+  .tema { display: grid; grid-template-columns: 7.5rem 1fr; text-decoration: none; color: var(--tinta); background: #fff; border: 1px solid var(--linea); border-radius: var(--radio); overflow: hidden; }
+  .tema img { display: block; width: 100%; height: 100%; min-height: 6.5rem; object-fit: cover; background: var(--celeste); }
+  .tema-texto { display: block; padding: .7rem .9rem .8rem; border-left: 5px solid var(--c); font-size: .93rem; line-height: 1.45; align-self: stretch; }
+  .tema b { display: block; font: 700 1.4rem/1.1 var(--display); color: var(--azul-noche); margin-bottom: .2rem; }
+  .tema:hover b { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 3px; }
+  .tema:focus-visible { outline: 3px solid var(--azul); outline-offset: 3px; }
+  .t-opt { --c: var(--amarillo); } .t-seg { --c: var(--minio); } .t-amb { --c: var(--verde); }
+  .creditos-temas { margin: 0; font-size: .78rem; line-height: 1.4; color: var(--tinta-2); }
+  @media (min-width: 46rem) {
+    .temas { grid-template-columns: repeat(3, 1fr); }
+    .tema { grid-template-columns: 1fr; grid-template-rows: auto 1fr; }
+    .tema img { height: auto; aspect-ratio: 16 / 10; min-height: 0; }
+    .tema-texto { border-left: 0; border-top: 5px solid var(--c); }
+    .creditos-temas { grid-column: 1 / -1; }
+  }
+  .tres-elementos { display: grid; gap: .75rem; margin: 1.25rem 0 0; }
+  @media (min-width: 46rem) { .tres-elementos { grid-template-columns: repeat(3, 1fr); } }
+  .tres-elementos div { background: #fff; border: 1px solid var(--linea); border-left: 5px solid var(--amarillo); border-radius: 8px; padding: .7rem .9rem; font-size: .95rem; line-height: 1.45; }
+  .tres-elementos b { display: block; font: 700 1.35rem/1.1 var(--display); color: var(--azul-noche); }
+  .tres-elementos div { display: grid; grid-template-columns: 3.5rem 1fr; column-gap: .85rem; align-items: start; }
+  .tres-elementos .ilus { width: 3.5rem; height: 3.5rem; grid-row: 1 / span 2; }
+  .tres-elementos b, .tres-elementos span { grid-column: 2; }
+  .tres-elementos b { margin-top: .15rem; }
+  .jerarquia { list-style: none; padding: 0; margin: 1.25rem 0; display: grid; gap: .3rem; max-width: 34rem; }
+  .jerarquia li { margin: 0 auto; padding: .5rem .9rem; border-radius: 6px; font-weight: 700; text-align: center; color: var(--azul-noche); font-size: .95rem; }
+  .jerarquia li span { display: block; font-weight: 400; font-size: .85rem; color: var(--tinta-2); }
+  .jerarquia li:nth-child(1) { width: 100%; background: #ffcc00; }
+  .jerarquia li:nth-child(2) { width: 90%; background: #ffd94d; }
+  .jerarquia li:nth-child(3) { width: 80%; background: #ffe680; }
+  .jerarquia li:nth-child(4) { width: 70%; background: #fff0b3; }
+  .jerarquia li:nth-child(5) { width: 60%; background: #fff8dc; }
+  .controles { display: grid; gap: .45rem; margin-top: .25rem; }
+  .controles label { display: flex; gap: .6rem; align-items: flex-start; background: #fff; border: 1px solid var(--linea); border-radius: 8px; padding: .55rem .7rem; cursor: pointer; font-size: .93rem; line-height: 1.4; }
+  .controles input { margin-top: .2rem; width: 1.05rem; height: 1.05rem; accent-color: var(--azul); flex: none; }
+  .controles .nivel { display: block; font-size: .78rem; font-weight: 700; color: var(--acento-texto); }
+  /* Jerarquía de residuos: de la mejor opción (verde) a la última (rojo) */
+  .residuos { list-style: none; padding: 0; margin: 1.25rem 0; display: grid; gap: .6rem; }
+  .residuos li, .tratamientos li { margin: 0; display: grid; grid-template-columns: 3.25rem 1fr; column-gap: .8rem; align-items: start; align-content: start; background: #fff; border: 1px solid var(--linea); border-radius: 8px; padding: .65rem .8rem; font-size: .92rem; line-height: 1.4; }
+  .residuos li { border-left: 5px solid var(--c); }
+  .residuos .ilus, .tratamientos .ilus { width: 3.25rem; height: 3.25rem; grid-row: 1 / span 2; }
+  .residuos b, .tratamientos b { grid-column: 2; font: 700 1.25rem/1.1 var(--display); color: var(--azul-noche); margin-top: .1rem; }
+  .residuos span, .tratamientos span { grid-column: 2; color: var(--tinta-2); }
+  .residuos li:nth-child(1) { --c: #0b7a55; } .residuos li:nth-child(2) { --c: #3f9b6f; } .residuos li:nth-child(3) { --c: #8cc6a4; }
+  .residuos li:nth-child(4) { --c: #f2b705; } .residuos li:nth-child(5) { --c: #e2685a; }
+  .tratamientos { list-style: none; padding: 0; margin: 1rem 0 1.25rem; display: grid; gap: .6rem; }
+  @media (min-width: 46rem) { .tratamientos { grid-template-columns: repeat(3, 1fr); } }
+  @media (min-width: 60rem) {
+    .residuos { grid-template-columns: repeat(5, 1fr); }
+    .residuos li { grid-template-columns: 1fr; border-left: 1px solid var(--linea); border-top: 5px solid var(--c); }
+    .residuos .ilus { grid-row: auto; margin-bottom: .5rem; }
+    .residuos b, .residuos span { grid-column: 1; }
+  }
+  .seccion-t { padding-top: 1rem; }
+  .seccion-t > .prosa > h2 { display: flex; align-items: center; gap: .6rem; }
+  .seccion-t > .prosa > h2 .tag { font-size: .85rem; }
+</style>
+</head>
+<body data-bloque="t">
+<a class="saltar" href="#contenido">Saltar al contenido</a>
+<header id="cabecera"></header>
+
+<main id="contenido">
+  <header class="encabezado-estacion contenedor">
+    <div class="fila">
+      <div class="circulo" aria-hidden="true"></div>
+      <div>
+        <p class="bloque-nombre"></p>
+        <h1>Optimización, seguridad y medio ambiente</h1>
+        <p class="entradilla">Tres temas que atraviesan a las dos carreras. Toda decisión de ingeniería busca lo mejor posible, sin hacerle daño a nadie ni al entorno.</p>
+        <p class="meta-estacion"></p>
+      </div>
+    </div>
+  </header>
+
+  <nav class="contenedor temas" aria-label="Los tres temas de esta página">
+    <a class="tema t-opt" href="#optimizacion"><img data-foto="sala-control" alt="" width="640" height="400"><span class="tema-texto"><b>Optimización</b>Escoger la mejor solución sin pasarse de los límites.</span></a>
+    <a class="tema t-seg" href="#seguridad"><img data-foto="epp" alt="" width="640" height="400"><span class="tema-texto"><b>Seguridad</b>Que nadie salga herido: peligros, controles y capas de protección.</span></a>
+    <a class="tema t-amb" href="#ambiente"><img data-foto="finca-cafetera" alt="" width="640" height="400"><span class="tema-texto"><b>Medio ambiente</b>Lo que no sale como producto sale como residuo o emisión.</span></a>
+    <p class="creditos-temas">Fotos de Wikimedia Commons. Sala de control: <span data-credito="sala-control"></span>; trabajador con equipo de protección: <span data-credito="epp"></span>; finca cafetera en Manizales: <span data-credito="finca-cafetera"></span>.</p>
+  </nav>
+
+  <section class="contenedor seccion-t" id="optimizacion">
+    <div class="prosa">
+      <h2>Optimización</h2>
+      <p>Optimizar es buscar la mejor solución entre las que cumplen todos los límites. González Ortiz lo plantea con tres elementos:</p>
+    </div>
+    <div class="tres-elementos">
+      <div><img class="ilus" src="img/iconos/o-criterio.svg" alt="" width="64" height="64"><b>Criterio</b><span>Lo que hace mejor a una solución: menor costo, más utilidad, menos emisiones.</span></div>
+      <div><img class="ilus" src="img/iconos/o-variables.svg" alt="" width="64" height="64"><b>Variables</b><span>Lo que se puede mover: cuánto producir, a qué temperatura operar.</span></div>
+      <div><img class="ilus" src="img/iconos/o-restricciones.svg" alt="" width="64" height="64"><b>Restricciones</b><span>Lo que no se puede cruzar: capacidad, presupuesto, física, normas.</span></div>
+    </div>
+    <div class="prosa" style="margin-top:1.25rem">
+      <p>Ya apareció en el amoníaco y en la tostadora. Cuando todo es lineal se usa la <strong>programación lineal</strong>, que George Dantzig formalizó en 1947.</p>
+    </div>
+    <div class="lab pl" data-nombre="Laboratorio">
+      <h3>La mejor mezcla de la semana</h3>
+      <p class="consigna">Una fábrica reparte su extracto entre un liofilizador y un secador por aspersión. El liofilizado deja más plata, pero gasta tres veces más energía. Mueve las cantidades o toca la gráfica: la región amarilla es lo que la planta puede hacer.</p>
+      <div class="lab-rejilla">
+        <div>
+          <div class="control"><label for="pl-x">Liofilizado por semana <output id="o-pl-x"></output></label><input type="range" id="pl-x" min="0" max="50" step="1" value="20"></div>
+          <div class="control"><label for="pl-y">Secado por aspersión por semana <output id="o-pl-y"></output></label><input type="range" id="pl-y" min="0" max="70" step="1" value="30"></div>
+          <ul class="restricciones" id="pl-rest"></ul>
+          <dl class="lectura">
+            <div><dt>Utilidad semanal</dt><dd id="r-pl-u">—</dd></div>
+          </dl>
+          <div class="botones" style="margin-top:1rem"><button class="boton sec chico" type="button" id="pl-opt">Mostrar el óptimo</button></div>
+        </div>
+        <div>
+          <div class="lienzo"><svg viewBox="0 0 440 360" id="svg-pl" role="img" aria-label="Región factible de producción y línea de igual utilidad"></svg></div>
+          <div class="retro" id="msg-pl" aria-live="polite"></div>
+        </div>
+      </div>
+      <p class="nota mb-0">Utilidad por tonelada: 9 millones el liofilizado y 5 el de aspersión. Cifras ilustrativas.</p>
+    </div>
+    <div class="prosa" style="margin-top:1.5rem">
+      <p>El óptimo cae en una esquina, y no es llenar el liofilizador: su consumo de energía obligaría a sacrificar demasiado café de aspersión.</p>
+    </div>
+  </section>
+
+  <section class="contenedor seccion-t" id="seguridad">
+    <div class="prosa">
+      <h2>Seguridad</h2>
+      <p>Un <strong>peligro</strong> es lo que puede causar daño, como el vapor o un tanque de amoníaco. El <strong>riesgo</strong> combina qué tan probable y qué tan grave es ese daño. Los controles se escogen en este orden, de más a menos eficaz:</p>
+    </div>
+    <ol class="jerarquia" aria-label="Jerarquía de controles">
+      <li>Eliminación<span>quitar el peligro</span></li>
+      <li>Sustitución<span>cambiarlo por algo menos peligroso</span></li>
+      <li>Controles de ingeniería<span>aislar a las personas del peligro</span></li>
+      <li>Controles administrativos<span>cambiar la forma de trabajar</span></li>
+      <li>Protección personal<span>la última barrera, sobre el cuerpo</span></li>
+    </ol>
+    <div class="prosa">
+      <p>Trevor Kletz lo resumió así: lo que no se tiene no se puede fugar. Lo demás se rodea de <strong>capas de protección</strong> independientes, que James Reason comparó con tajadas de queso suizo: el accidente ocurre cuando los huecos se alinean.</p>
+    </div>
+    <div class="lab capas" data-nombre="Laboratorio">
+      <h3>El tanque que se rebosa</h3>
+      <p class="consigna">El control de nivel de un tanque de solvente falla una vez cada diez años. La empresa acepta un derrame como mucho una vez cada diez mil años. Escoge las capas.</p>
+      <div class="lab-rejilla">
+        <div>
+          <div class="controles">
+            <label><input type="checkbox" id="c-alarma" checked><span><span class="nivel">Falla 1 de cada 10 veces</span>Alarma de nivel alto con un operador que para la bomba</span></label>
+            <label><input type="checkbox" id="c-sis"><span><span class="nivel">Falla 1 de cada 100 veces</span>Interruptor de nivel muy alto que para la bomba solo</span></label>
+            <label><input type="checkbox" id="c-dique"><span><span class="nivel">Falla 1 de cada 100 veces</span>Dique de contención alrededor del tanque</span></label>
+          </div>
+          <dl class="lectura">
+            <div><dt>El derrame ocurre una vez cada</dt><dd id="r-cada">—</dd></div>
+          </dl>
+        </div>
+        <div>
+          <div class="lienzo"><svg viewBox="0 0 440 250" id="svg-capas" role="img" aria-label="Capas de protección como tajadas de queso suizo y la frecuencia del accidente"></svg></div>
+          <div class="retro" id="msg-capas" aria-live="polite"></div>
+        </div>
+      </div>
+      <p class="nota mb-0">Análisis de capas de protección (LOPA), con valores típicos de la literatura.</p>
+    </div>
+    <figure class="foto angosta" data-foto="dique" data-leyenda="Tanques de ácido dentro de un dique de ladrillo, en Inglaterra, hacia 1980. Si un tanque se rebosa o se rompe, el líquido queda atrapado adentro: es la tercera capa del laboratorio."></figure>
+    <div class="prosa" style="margin-top:1.5rem">
+      <p>Varias de estas prácticas nacieron de una tragedia:</p>
+    </div>
+    <div class="tabla-envoltura">
+      <table class="tabla-apilada">
+        <thead><tr><th scope="col">Accidente</th><th scope="col">Qué pasó</th><th scope="col">Lo que dejó</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Flixborough, 1974</th><td data-label="Qué pasó">Falló un tubo provisional puesto sin diseño entre dos reactores. 28 muertos.</td><td data-label="Lo que dejó">Gestión del cambio: toda modificación se revisa como un equipo nuevo.</td></tr>
+          <tr><th scope="row">Bhopal, 1984</th><td data-label="Qué pasó">Se fugó isocianato de metilo sobre la ciudad. El gobierno local reconoció 3.787 muertes.</td><td data-label="Lo que dejó">No almacenar grandes cantidades de sustancias peligrosas.</td></tr>
+          <tr><th scope="row">Piper Alpha, 1988</th><td data-label="Qué pasó">Arrancaron una bomba sin válvula de alivio porque el permiso no llegó al turno siguiente. 167 muertos.</td><td data-label="Lo que dejó">Permisos de trabajo y entrega de turno por escrito.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="tres-fotos">
+      <figure class="foto" data-foto="flixborough" data-leyenda='<b>Flixborough.</b> Tablero en memoria de los 28 muertos, junto a la iglesia del pueblo. <a href="https://en.wikipedia.org/wiki/Flixborough_disaster">Más sobre el accidente (en inglés)</a>'></figure>
+      <figure class="foto" data-foto="bhopal-tanque" data-leyenda='<b>Bhopal.</b> El tanque 610, del que se escapó el gas, seguía en la fábrica abandonada en 2010. <a href="https://es.wikipedia.org/wiki/Desastre_de_Bhopal">Más sobre el accidente</a>'></figure>
+      <figure class="foto" data-foto="piper-alpha" data-leyenda='<b>Piper Alpha.</b> Monumento a los 167 muertos en Aberdeen, Escocia. <a href="https://en.wikipedia.org/wiki/Piper_Alpha">Foto de la plataforma en llamas (en inglés)</a>'></figure>
+    </div>
+    <div class="prosa">
+      <p>En Colombia, el Decreto 1072 de 2015 obliga a todo empleador a tener un sistema de gestión de la seguridad y salud en el trabajo (SG-SST).</p>
+    </div>
+  </section>
+
+  <section class="contenedor seccion-t" id="ambiente">
+    <div class="prosa">
+      <h2>Medio ambiente</h2>
+      <p>El balance de materia no tiene excepciones: lo que no sale como producto sale como residuo o emisión. El <strong>desarrollo sostenible</strong> (Comisión Brundtland, 1987) satisface las necesidades del presente sin comprometer las de las generaciones futuras. Con los residuos se sigue este orden:</p>
+    </div>
+    <ol class="residuos" aria-label="Jerarquía de gestión de residuos, de la mejor a la última opción">
+      <li><img class="ilus" src="img/iconos/r-prevenir.svg" alt="" width="64" height="64"><b>Prevenir</b><span>Que el residuo no se forme.</span></li>
+      <li><img class="ilus" src="img/iconos/r-reutilizar.svg" alt="" width="64" height="64"><b>Reutilizar</b><span>Usarlo otra vez, tal como está.</span></li>
+      <li><img class="ilus" src="img/iconos/r-reciclar.svg" alt="" width="64" height="64"><b>Reciclar</b><span>Volverlo materia prima.</span></li>
+      <li><img class="ilus" src="img/iconos/r-valorizar.svg" alt="" width="64" height="64"><b>Valorizar como energía</b><span>Quemarlo para sacar calor, como la borra.</span></li>
+      <li><img class="ilus" src="img/iconos/r-disponer.svg" alt="" width="64" height="64"><b>Tratar y disponer</b><span>Lo último: tratarlo y llevarlo a un relleno.</span></li>
+    </ol>
+    <div class="prosa">
+      <p>Prevenir sale más barato: el residuo que no se forma es materia prima que sí se vendió. Buencafé valoriza: desde 1995 quema en sus calderas la borra, el café ya usado que sale de la extracción, y, según la empresa, aprovecha así el 97 % de sus residuos. La <strong>química verde</strong> evita el residuo desde la reacción; su medida es la <strong>economía atómica</strong>, la parte de la masa de los reactivos que termina en el producto.</p>
+    </div>
+    <figure class="video" data-youtube="YQIWYy_a1DA" data-titulo="Avances en materia de sostenibilidad" data-canal="Buencafé" data-leyenda="Buencafé resume sus avances en sostenibilidad, en la feria Cafés de Colombia Expo 2022."></figure>
+    <div class="prosa">
+      <p>Lo que no se puede prevenir se trata con las mismas operaciones de la página 2:</p>
+    </div>
+    <ul class="tratamientos">
+      <li><img class="ilus" src="img/iconos/t-polvo.svg" alt="" width="64" height="64"><b>Polvo</b><span>Filtros que lo atrapan antes de que salga por la chimenea.</span></li>
+      <li><img class="ilus" src="img/iconos/t-gases.svg" alt="" width="64" height="64"><b>Gases</b><span>Torres de absorción: un líquido que baja atrapa el gas que sube.</span></li>
+      <li><img class="ilus" src="img/iconos/t-agua.svg" alt="" width="64" height="64"><b>Agua</b><span>Microorganismos que se comen la materia orgánica.</span></li>
+    </ul>
+    <div class="prosa">
+      <p>En Colombia, la Resolución 631 de 2015 fija los límites de los vertimientos.</p>
+    </div>
+    <figure class="foto angosta" data-foto="clarificadores" data-leyenda="Tres clarificadores de una planta de aguas residuales en Kailua, Hawái, vistos desde un dron. En ellos se asientan los sólidos antes de devolver el agua."></figure>
+  </section>
+
+  <section class="contenedor">
+    <div class="para-llevar">
+      <h2>Para llevarse</h2>
+      <ul>
+        <li>Optimizar es escoger con un criterio, unas variables y unas restricciones. En programación lineal el óptimo cae en una esquina.</li>
+        <li>Los controles de riesgo se escogen de arriba abajo; ninguna capa de protección basta sola.</li>
+        <li>Primero prevenir el residuo; tratarlo y disponerlo es lo último.</li>
+      </ul>
+    </div>
+    <p class="cita-fuente">Fuentes: González Ortiz, O. (2024), <em>Fundamentos de ingeniería industrial</em>, secciones 3.2.3, 4.7 y 7.2.8, Ecoe Ediciones; Jarabo, F. y García, F. J., <em>Conceptos de Ingeniería Química</em>, temas I y IX; Dantzig, G. B. (1963), <em>Linear Programming and Extensions</em>, Princeton University Press; Kletz, T. (1998), <em>Process Plants: A Handbook for Inherently Safer Design</em>; CCPS (2001), <em>Layer of Protection Analysis</em>, AIChE; Reason, J. (1997), <em>Managing the Risks of Organizational Accidents</em>; U.S. Chemical Safety Board (2007), informe sobre BP Texas City; Cullen, W. D. (1990), informe sobre Piper Alpha; NIOSH, <em>Hierarchy of Controls</em>; Comisión Mundial sobre el Medio Ambiente y el Desarrollo (1987), <em>Nuestro futuro común</em>; Anastas, P. y Warner, J. (1998), <em>Green Chemistry: Theory and Practice</em>; Trost, B. M. (1991), <em>Science</em>, 254, 1471-1477; Sheldon, R. A. (2000), <em>Pure and Applied Chemistry</em>, 72, 1233-1246; Decreto 1072 de 2015; Resolución 631 de 2015; Agronegocios (2023).</p>
+  </section>
+
+  <div id="cierre"></div>
+</main>
+
+<footer id="pie"></footer>
+<script src="js/imagenes.js"></script>
+<script src="js/sitio.js"></script>
+<script src="js/optimizacion-seguridad-ambiente.js"></script>
+</body>
+</html>

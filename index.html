@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="es-CO">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Humanidades: Conceptos básicos de Ingeniería Química e Industrial</title>
+<meta name="description" content="Recorrido corto por la Ingeniería Química y la Ingeniería Industrial, con optimización, seguridad y medio ambiente. Grupo 2, Humanidades para Ingeniería, Universidad Nacional de Colombia, Sede Manizales.">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="css/estilos.css">
+<style>
+  .portada h1 { max-width: none; }
+  .portada .subtitulo { font: 700 clamp(1.7rem, 3.6vw, 2.6rem)/1.1 var(--display); color: var(--amarillo); margin: .6rem 0 0; max-width: 30ch; }
+  .ruta { list-style: none; margin: 2.25rem 0 0; padding: 0; display: grid; gap: .6rem; counter-reset: r; position: relative; }
+  @media (min-width: 56rem) { .ruta { grid-template-columns: repeat(5, 1fr); gap: 0; } .ruta::before { content: ""; position: absolute; left: 1.4rem; right: 1.4rem; top: 1.35rem; height: 6px; border-radius: 3px; background: repeating-linear-gradient(90deg, var(--amarillo) 0 14px, transparent 14px 22px); } }
+  .ruta li { margin: 0; position: relative; }
+  .ruta a { display: flex; gap: .75rem; align-items: center; text-decoration: none; color: #fff; padding: .2rem 1rem .2rem 0; }
+  @media (min-width: 56rem) { .ruta a { flex-direction: column; align-items: flex-start; gap: .55rem; } }
+  .ruta .n { width: 2.7rem; height: 2.7rem; border-radius: 50%; background: var(--amarillo); color: var(--azul-noche); display: grid; place-items: center; font: 700 1.5rem/1 var(--display); flex: none; position: relative; z-index: 1; box-shadow: 0 0 0 5px var(--azul-noche); }
+  .ruta .t { font-weight: 700; line-height: 1.3; }
+  .ruta .m { display: block; font-weight: 400; font-size: .88rem; color: #b8c3ea; }
+  .ruta a:hover .t { color: var(--amarillo); }
+  .lugar { display: grid; gap: 1.75rem; align-items: start; }
+  @media (min-width: 60rem) { .lugar { grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: 2.5rem; } }
+  .mapa-embed { border: 1px solid var(--linea); border-radius: var(--radio); overflow: hidden; background: var(--celeste); aspect-ratio: 4 / 3; }
+  .mapa-embed iframe { display: block; width: 100%; height: 100%; border: 0; }
+  .nota-mapa { font-size: .88rem; color: var(--tinta-2); margin: .5rem 0 0; }
+  .datos { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .75rem; margin: 1.5rem 0 0; }
+  .datos div { border-top: 4px solid var(--azul-noche); background: #fff; border-radius: 0 0 8px 8px; padding: .6rem .75rem .7rem; }
+  .datos b { display: block; font: 700 1.9rem/1.05 var(--display); color: var(--azul-noche); }
+  .datos span { font-size: .88rem; color: var(--tinta-2); line-height: 1.35; display: block; margin-top: .2rem; }
+  .datos b { white-space: nowrap; }
+  @media (max-width: 30rem) { .datos { gap: .5rem; } .datos div { padding: .5rem .5rem .6rem; } .datos b { font-size: 1.4rem; } .datos span { font-size: .78rem; } }
+  .campus { display: grid; gap: 1rem; margin-top: 2rem; }
+  @media (min-width: 40rem) { .campus { grid-template-columns: repeat(3, 1fr); } }
+  .campus .ficha { padding: 0; overflow: hidden; display: flex; flex-direction: column; }
+  .campus .ficha .cuerpo-ficha { padding: .9rem 1.1rem 1.1rem; }
+  .campus .ficha h3 { margin: 0 0 .35rem; font-size: 1.5rem; }
+  .campus .ficha p { margin: 0 0 .5rem; }
+  .campus .ficha a { font-weight: 700; font-size: .92rem; }
+  .campus figure.foto { margin: 0; max-width: none; }
+  .campus figure.foto img { border-radius: 0; aspect-ratio: 4 / 3; object-fit: cover; }
+  .campus figure.foto figcaption { margin: 0; padding: .4rem 1.1rem 0; }
+  .campus figure.foto figcaption .credito { margin: 0; font-size: .74rem; }
+  .campus figure.foto figcaption a { font-weight: 400; font-size: inherit; }
+  .hitos { list-style: none; margin: 1.5rem 0 0; padding: 0; display: grid; gap: .75rem; }
+  @media (min-width: 52rem) { .hitos { grid-template-columns: repeat(5, 1fr); } }
+  .hitos li { margin: 0; border-left: 4px solid var(--amarillo); padding: .1rem 0 .1rem .8rem; font-size: .95rem; line-height: 1.45; }
+  .hitos b { display: block; font: 700 1.7rem/1 var(--display); color: var(--azul-noche); margin-bottom: .2rem; }
+  .hitos .ilus { display: block; width: 3.25rem; height: 3.25rem; margin-bottom: .55rem; }
+  .hitos span { display: block; }
+  @media (max-width: 51.99rem) { .hitos li { display: grid; grid-template-columns: 3.25rem 1fr; column-gap: .85rem; align-items: start; } .hitos .ilus { grid-row: 1 / span 2; margin: 0; } .hitos b, .hitos span { grid-column: 2; } }
+  .seccion-inicio { padding-top: 3.5rem; }
+  @media (max-width: 40rem) { .seccion-inicio { padding-top: 1rem; } }
+  .seccion-inicio h2 { margin-bottom: .75rem; }
+</style>
+</head>
+<body data-bloque="g">
+<a class="saltar" href="#contenido">Saltar al contenido</a>
+<header id="cabecera"></header>
+
+<main id="contenido">
+  <section class="portada">
+    <div class="contenedor">
+      <h1>Humanidades</h1>
+      <p class="subtitulo">Conceptos básicos de Ingeniería Química e Industrial</p>
+      <p class="bajada">El módulo que le tocó al Grupo 2, en un recorrido corto hecho en la Universidad Nacional de Colombia, Sede Manizales.</p>
+      <ol class="ruta" id="ruta" aria-label="Las cinco páginas del recorrido"></ol>
+    </div>
+  </section>
+
+  <section class="contenedor seccion-inicio" id="lugar">
+    <div class="lugar">
+      <div class="prosa">
+        <h2>La UNAL en Manizales: historia y campus</h2>
+        <p>La Universidad Nacional de Colombia, fundada en 1867, es la universidad pública de la nación. Su sede de Manizales nació el 29 de marzo de 1948, cuando se firmó el contrato que creó aquí su Facultad de Ingeniería, con apoyo del departamento de Caldas y de la Sociedad de Mejoras Públicas. Hoy tiene tres facultades y tres campus. En la Facultad de Ingeniería y Arquitectura se estudian las dos carreras de este recorrido.</p>
+        <p>Manizales, capital de Caldas, fue fundada en 1849 por colonos antioqueños sobre la cordillera Central, cerca del Nevado del Ruiz. Su historia va unida al café, y por eso el café es el ejemplo de todo el recorrido: en Chinchiná, el municipio vecino, la planta de Buencafé hace café liofilizado desde 1973.</p>
+      </div>
+      <div>
+        <div class="mapa-embed">
+          <iframe title="Mapa de la Universidad Nacional de Colombia, Sede Manizales" src="https://maps.google.com/maps?q=Universidad%20Nacional%20de%20Colombia%20Sede%20Manizales%20Campus%20Palogrande&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=&amp;output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+        </div>
+        <p class="nota-mapa">Campus Palogrande, Carrera 27 n.º 64-60, Manizales. Si el mapa no carga, <a href="https://www.google.com/maps/search/?api=1&amp;query=Universidad+Nacional+de+Colombia+Sede+Manizales">ábrelo en Google Maps</a>.</p>
+        <div class="datos">
+          <div><b>2.150 m</b><span>de altura sobre el nivel del mar</span></div>
+          <div><b>434.403</b><span>habitantes en Manizales, censo de 2018</span></div>
+          <div><b>1948</b><span>año en que empezó la sede, con la Facultad de Ingeniería</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="dos-fotos una-dos">
+      <figure class="foto" data-foto="catedral" data-leyenda="La Catedral Basílica de Manizales, frente a la Plaza de Bolívar."></figure>
+      <figure class="foto" data-foto="nevado" data-leyenda="El Nevado del Ruiz, en la cordillera Central, visto desde la carretera hacia Murillo."></figure>
+    </div>
+
+    <div class="campus">
+      <div class="ficha">
+        <figure class="foto" data-foto="palogrande"></figure>
+        <div class="cuerpo-ficha">
+          <h3>Palogrande</h3>
+          <p>La dirección principal de la sede, con la biblioteca central y las oficinas de la Facultad de Ingeniería y Arquitectura.</p>
+          <a href="https://www.google.com/maps/search/?api=1&amp;query=Campus+Palogrande+Universidad+Nacional+Manizales">Ver en el mapa</a>
+        </div>
+      </div>
+      <div class="ficha">
+        <figure class="foto" data-foto="el-cable"></figure>
+        <div class="cuerpo-ficha">
+          <h3>El Cable</h3>
+          <p>La antigua estación del cable aéreo que llevaba el café hacia el río Magdalena, diseñada por Leopoldo Rother. Pasó a la Universidad en 1977 y hoy es la Escuela de Arquitectura.</p>
+          <a href="https://www.google.com/maps/search/?api=1&amp;query=Campus+El+Cable+Universidad+Nacional+Manizales">Ver en el mapa</a>
+        </div>
+      </div>
+      <div class="ficha">
+        <figure class="foto" data-foto="la-nubia"></figure>
+        <div class="cuerpo-ficha">
+          <h3>La Nubia</h3>
+          <p>Junto al aeropuerto. Allí se estudian Ingeniería Química e Industrial, y está el edificio de Química e Ingeniería Química, terminado en 2013.</p>
+          <a href="https://www.google.com/maps/search/?api=1&amp;query=Campus+La+Nubia+Universidad+Nacional+Manizales">Ver en el mapa</a>
+        </div>
+      </div>
+    </div>
+    <figure class="video" data-youtube="0QWqS4cU93E" data-titulo="Sede Manizales UNAL" data-canal="Manizales UNAL" data-leyenda="Un minuto por la sede, en el video oficial de la Universidad."></figure>
+  </section>
+
+  <section class="contenedor seccion-inicio" id="trabajo">
+    <div class="prosa">
+      <h2>Integrantes del Grupo 2</h2>
+    </div>
+    <ul class="equipo" id="lista-equipo"></ul>
+  </section>
+
+  <section class="contenedor seccion-inicio" id="ingenieria">
+    <div class="prosa">
+      <h2>Antes de empezar: ¿qué hace un ingeniero?</h2>
+      <p>La lectura del módulo lo resume en una frase: la función del científico es <strong>saber</strong>, y la del ingeniero es <strong>hacer</strong>. El ingeniero aplica la ciencia a necesidades de la sociedad, pero no escoge su problema: resuelve el que le llega, con recursos limitados y exigencias que chocan entre sí, como el costo y la seguridad. Por eso no busca la solución perfecta, sino la óptima para ese caso.</p>
+    </div>
+    <ol class="hitos" aria-label="Cinco fechas de la ingeniería">
+      <li><img class="ilus" src="img/iconos/h-quimica.svg" alt="" width="64" height="64"><b>1888</b><span>El MIT abre el primer programa de Ingeniería Química.</span></li>
+      <li><img class="ilus" src="img/iconos/i-metodos.svg" alt="" width="64" height="64"><b>1911</b><span>Frederick Taylor publica <em>Principios de la administración científica</em>, base de la Ingeniería Industrial.</span></li>
+      <li><img class="ilus" src="img/iconos/i-manufactura.svg" alt="" width="64" height="64"><b>1913</b><span>Ford pone a andar la línea de ensamble móvil.</span></li>
+      <li><img class="ilus" src="img/iconos/h-universidad.svg" alt="" width="64" height="64"><b>1948</b><span>Nace la Facultad de Ingeniería de la Nacional en Manizales.</span></li>
+      <li><img class="ilus" src="img/iconos/h-ley.svg" alt="" width="64" height="64"><b>2003</b><span>La Ley 842 exige matrícula profesional para ejercer la ingeniería en Colombia.</span></li>
+    </ol>
+    <p class="cita-fuente" style="margin-top:2rem">Fuentes: Editores (2009), «La Ingeniería», <em>Revista Digital Lámpsakos</em>, 1, 13-21; Universidad Nacional de Colombia (1954), «Facultad de Ingeniería», <em>Anuario de la Universidad Nacional de Colombia</em>, 189-193; Londoño de Maldonado, M. L. (1997), <em>El surgimiento de la universidad en Manizales y la consolidación de la Universidad Nacional de Colombia Sede Manizales</em>; Universidad Nacional de Colombia, «Sedes», unal.edu.co; «Universidad Nacional de Colombia sede Manizales», Wikipedia; ArchDaily, «Edificio de Química e Ingeniería Química / José Fernando Muñoz Robledo»; La Patria, «Reforzarán el techo en Arquitectura»; DANE, Censo Nacional de Población y Vivienda 2018; Ley 842 de 2003.</p>
+  </section>
+
+  <div id="cierre"></div>
+</main>
+
+<footer id="pie"></footer>
+<script src="js/imagenes.js"></script>
+<script src="js/sitio.js"></script>
+<script>
+(function () {
+  var P = window.Planta;
+  document.getElementById("ruta").innerHTML = P.PAGINAS.map(function (p) {
+    return '<li><a href="' + (p.n === 1 ? "#lugar" : p.archivo) + '"><span class="n">' + p.n + '</span><span class="t">' + p.titulo + '</span></a></li>';
+  }).join("");
+  document.getElementById("lista-equipo").innerHTML = P.GRUPO.map(function (n) { return "<li>" + n + "</li>"; }).join("");
+})();
+</script>
+</body>
+</html>

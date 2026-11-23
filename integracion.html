@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="es-CO">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Las dos juntas y el cierre | Humanidades</title>
+<meta name="description" content="Cómo se complementan la Ingeniería Química y la Industrial, nueve preguntas de repaso, las conclusiones del módulo y las fuentes del trabajo.">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="css/estilos.css">
+<style>
+  .miradas th[scope="row"] { width: 22%; }
+  .miradas th[scope="row"] .ilus { display: block; width: 3.25rem; height: 3.25rem; margin-bottom: .45rem; }
+  .miradas th[scope="row"] span { display: block; }
+  .miradas thead .mini { width: 1.35rem; height: 1.35rem; vertical-align: -.35rem; margin-right: .4rem; }
+  .miradas tbody td { vertical-align: middle; }
+  @media (max-width: 40rem) { table.miradas th[scope="row"] { display: flex; align-items: center; gap: .8rem; } .miradas th[scope="row"] .ilus { width: 2.75rem; height: 2.75rem; margin: 0; flex: none; } }
+  .miradas td.q { border-left: 4px solid var(--azul); }
+  .miradas td.i { border-left: 4px solid var(--minio); }
+  .domino { list-style: none; padding: 0; margin: 1.25rem 0 0; display: grid; gap: .75rem; counter-reset: d; }
+  @media (min-width: 52rem) { .domino { grid-template-columns: repeat(4, 1fr); } }
+  .domino li { margin: 0; counter-increment: d; background: #fff; border: 1px solid var(--linea); border-radius: var(--radio); padding: .75rem .85rem; font-size: .93rem; line-height: 1.45; position: relative; }
+  .domino li b { display: block; color: var(--azul-noche); margin-bottom: .2rem; }
+  .domino li b::before { content: counter(d) ". "; color: var(--rojo); }
+  .domino li span { display: block; font-size: .8rem; color: var(--tinta-2); margin-bottom: .3rem; font-weight: 700; }
+  .progreso-quiz { height: 8px; border-radius: 4px; background: var(--celeste-2); overflow: hidden; margin: 0 0 1.25rem; }
+  .progreso-quiz div { height: 100%; background: var(--amarillo); transition: width .3s; }
+  .quiz-cab { display: flex; justify-content: space-between; flex-wrap: wrap; gap: .25rem 1rem; font-size: .9rem; color: var(--tinta-2); margin-bottom: .5rem; }
+  .quiz-cab a { font-weight: 700; }
+  #quiz .pregunta { max-width: 46rem; }
+  #quiz .pregunta .enunciado { font-weight: 700; font-size: 1.2rem; line-height: 1.45; color: var(--tinta); margin-bottom: 1rem; }
+  .resultado .puntaje { font: 700 clamp(3.2rem, 10vw, 5rem)/1 var(--display); color: var(--azul-noche); margin: 0 0 .5rem; }
+  .repasar { list-style: none; padding: 0; margin: 1rem 0; display: grid; gap: .5rem; max-width: 34rem; }
+  .repasar li { margin: 0; background: #fff; border: 1px solid var(--linea); border-radius: 8px; padding: .6rem .9rem; }
+  .conclusiones { display: grid; gap: 1rem; margin-top: 1.25rem; }
+  @media (min-width: 52rem) { .conclusiones { grid-template-columns: repeat(3, 1fr); } }
+  .conclusiones .ficha { display: grid; grid-template-columns: 3.25rem 1fr; column-gap: .85rem; align-content: start; }
+  .conclusiones .ficha .ilus { width: 3.25rem; height: 3.25rem; }
+  .conclusiones .ficha h3 { margin: 0; font-size: 1.4rem; align-self: center; }
+  .conclusiones .ficha p { margin: .65rem 0 0; grid-column: 1 / -1; }
+  .conclusiones .ficha.q { border-top: 5px solid var(--azul); }
+  .conclusiones .ficha.i { border-top: 5px solid var(--minio); }
+  .conclusiones .ficha.t { border-top: 5px solid var(--amarillo); }
+  #fuentes details.faq { max-width: 52rem; }
+  .fuentes { padding-left: 1.4rem; margin: .25rem 0 1rem; }
+  .fuentes li { margin-bottom: .55rem; padding-left: .25rem; line-height: 1.5; font-size: .95rem; }
+  .creditos li { margin-bottom: .5rem; font-size: .95rem; }
+  .citar { line-height: 1.6; background: var(--amarillo-claro); border-left: 4px solid var(--amarillo); border-radius: 8px; padding: 1rem 1.2rem; max-width: 52rem; }
+</style>
+</head>
+<body data-bloque="x">
+<a class="saltar" href="#contenido">Saltar al contenido</a>
+<header id="cabecera"></header>
+
+<main id="contenido">
+  <header class="encabezado-estacion contenedor">
+    <div class="fila">
+      <div class="circulo" aria-hidden="true"></div>
+      <div>
+        <p class="bloque-nombre"></p>
+        <h1>Las dos juntas y el cierre</h1>
+        <p class="entradilla">En una planta real ninguna de las dos carreras trabaja sola. Aquí se ven juntas, se repasa todo en nueve preguntas y quedan las conclusiones.</p>
+        <p class="meta-estacion"></p>
+      </div>
+    </div>
+  </header>
+
+  <section class="contenedor" id="miradas">
+    <div class="prosa">
+      <h2>Dos miradas sobre la misma planta</h2>
+      <p>Frente a la misma planta, cada carrera mira cosas distintas, y a cada una le falta lo que ve la otra.</p>
+    </div>
+    <div class="tabla-envoltura">
+      <table class="miradas tabla-apilada">
+        <thead><tr><th scope="col">Decisión</th><th scope="col"><img class="mini" src="img/iconos/mini-quimica.svg" alt="" width="22" height="22">Mirada química</th><th scope="col"><img class="mini" src="img/iconos/mini-industrial.svg" alt="" width="22" height="22">Mirada industrial</th></tr></thead>
+        <tbody>
+          <tr><th scope="row"><img class="ilus" src="img/iconos/m-ubicar.svg" alt="" width="64" height="64"><span>Dónde ubicar la planta</span></th><td data-label="Mirada química" class="q">Agua para el proceso y el enfriamiento, energía, cercanía a las materias primas.</td><td data-label="Mirada industrial" class="i">Cercanía a los mercados, transporte, mano de obra, costo del terreno.</td></tr>
+          <tr><th scope="row"><img class="ilus" src="img/iconos/m-acomodar.svg" alt="" width="64" height="64"><span>Cómo acomodar los equipos</span></th><td data-label="Mirada química" class="q">Distancias de seguridad entre reactores, calderas y tanques.</td><td data-label="Mirada industrial" class="i">Flujo de materiales sin cruces ni retrocesos, ergonomía.</td></tr>
+          <tr><th scope="row"><img class="ilus" src="img/iconos/m-medir.svg" alt="" width="64" height="64"><span>Cómo saber si va bien</span></th><td data-label="Mirada química" class="q">Pureza, composición y rendimiento de cada lote.</td><td data-label="Mirada industrial" class="i">Cartas de control, tiempos, costos y defectos.</td></tr>
+          <tr><th scope="row"><img class="ilus" src="img/iconos/m-cuidar.svg" alt="" width="64" height="64"><span>Cómo cuidar a la gente y al entorno</span></th><td data-label="Mirada química" class="q">Plantas para tratar gases y aguas, diseño inherentemente seguro.</td><td data-label="Mirada industrial" class="i">Sistema de seguridad y salud en el trabajo, logística inversa, reciclaje.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="prosa">
+      <p>El ejemplo de nuestra presentación, una planta de biodiésel, muestra un proceso que falla sin que la química tenga la culpa:</p>
+    </div>
+    <ol class="domino" aria-label="Efecto dominó en una planta de biodiésel">
+      <li><span>Logística</span><b>El detonante</b>El aceite llega tarde y con alta acidez.</li>
+      <li><span>Producción</span><b>El impacto</b>Los reactores se desajustan y toca cambiar temperaturas y catalizador.</li>
+      <li><span>Calidad</span><b>La alerta</b>El lote sale con exceso de humedad y no pasa la norma.</li>
+      <li><span>Negocio</span><b>El colapso</b>No hay producto para los camiones: retrasos y multas.</li>
+    </ol>
+    <div class="prosa" style="margin-top:1.25rem">
+      <p>La barrera más barata estaba al principio: revisar el aceite al recibirlo y tener un proveedor alterno.</p>
+    </div>
+    <figure class="foto angosta" data-foto="biodiesel" data-leyenda="La planta de biodiésel de Argent Energy, la primera a gran escala del Reino Unido, en 2006."></figure>
+  </section>
+
+  <section class="contenedor" id="repaso">
+    <div class="prosa">
+      <h2>Comprueba lo que aprendiste</h2>
+      <p>Nueve preguntas, una a la vez. Si fallas alguna, al final te decimos qué página repasar.</p>
+    </div>
+    <div class="lab" data-nombre="Repaso" id="quiz"></div>
+  </section>
+
+  <section class="contenedor" id="conclusiones">
+    <div class="prosa">
+      <h2>Conclusiones</h2>
+    </div>
+    <div class="conclusiones">
+      <div class="ficha q"><img class="ilus" src="img/iconos/h-quimica.svg" alt="" width="64" height="64"><h3>Ingeniería Química</h3><p>Transforma la materia a escala industrial. Se apoya en balances, equilibrio, transporte, cinética y separaciones, y sus operaciones se repiten en industrias muy distintas, del petróleo al café.</p></div>
+      <div class="ficha i"><img class="ilus" src="img/iconos/c-industrial.svg" alt="" width="64" height="64"><h3>Ingeniería Industrial</h3><p>Optimiza el sistema que produce. Con el enfoque ingenieril analiza los problemas y mejora métodos, producción, logística, calidad y mantenimiento.</p></div>
+      <div class="ficha t"><img class="ilus" src="img/iconos/c-ambas.svg" alt="" width="64" height="64"><h3>Lo que comparten</h3><p>Las dos optimizan, las dos responden por la seguridad de las personas y las dos cargan con el ambiente en el mismo balance de materia. En una planta real ninguna funciona sola.</p></div>
+    </div>
+  </section>
+
+  <section class="contenedor" id="fuentes" style="padding-top:3rem">
+    <div class="prosa">
+      <h2>Fuentes, créditos y cómo se hizo</h2>
+      <p>Para consultar si hace falta.</p>
+    </div>
+    <details class="faq">
+      <summary>Bibliografía completa</summary>
+      <div>
+        <h3>Textos base del módulo</h3>
+        <ol class="fuentes">
+          <li>Grupo 2 (2026). <em>Conceptos básicos de Ingeniería Química e Industrial</em> y <em>Tensión creativa: rigor técnico vs. eficiencia sistémica en la ingeniería</em>. Presentaciones para Humanidades para Ingeniería, Universidad Nacional de Colombia, Sede Manizales.</li>
+          <li>Jarabo, F. y García, F. J. <em>Conceptos de Ingeniería Química</em>. Documento del módulo, temas básicos 1 a 9 y temas suplementarios I a IX.</li>
+          <li>González Ortiz, O. (2024). <em>Fundamentos de ingeniería industrial: una visión actualizada desde su definición, currículo, estudio y aplicaciones</em>. Bogotá: Ecoe Ediciones.</li>
+          <li>Editores (2009). La Ingeniería. <em>Revista Digital Lámpsakos</em>, 1, 13-21.</li>
+        </ol>
+        <h3>La Universidad y Manizales</h3>
+        <ol class="fuentes">
+          <li>Universidad Nacional de Colombia (1954). Facultad de Ingeniería. <em>Anuario de la Universidad Nacional de Colombia (1939-1954)</em>, 189-193.</li>
+          <li>Londoño de Maldonado, M. L. (1997). <em>El surgimiento de la universidad en Manizales y la consolidación de la Universidad Nacional de Colombia Sede Manizales</em>. Universidad Nacional de Colombia, Sede Manizales.</li>
+          <li>Universidad Nacional de Colombia. «Sedes». unal.edu.co.</li>
+          <li>La Patria. «Reforzarán el techo en Arquitectura». lapatria.com.</li>
+          <li>«Universidad Nacional de Colombia sede Manizales». <em>Wikipedia, la enciclopedia libre</em>. es.wikipedia.org.</li>
+          <li>ArchDaily (2016). «Edificio de Química e Ingeniería Química / José Fernando Muñoz Robledo». archdaily.com.</li>
+          <li>Ley 56 de 1989, por la cual la Nación se asocia a los cuarenta años de la Universidad Nacional de Colombia, Seccional Manizales.</li>
+          <li>DANE. <em>Censo Nacional de Población y Vivienda 2018</em>.</li>
+          <li>Federación Nacional de Cafeteros (2023). Comunicado por los cincuenta años de la planta de Buencafé en Chinchiná, Caldas.</li>
+          <li>Agronegocios (2023). «La fábrica de liofilizado de Chinchiná, Buencafé, cumple 50 años con cifras significativas».</li>
+        </ol>
+        <h3>Ingeniería Química e Industrial</h3>
+        <ol class="fuentes">
+          <li>Bird, R. B., Stewart, W. E. y Lightfoot, E. N. (1960). <em>Transport Phenomena</em>. Nueva York: John Wiley &amp; Sons.</li>
+          <li>Levenspiel, O. <em>Ingeniería de las reacciones químicas</em>, 3.ª ed. México: Limusa Wiley.</li>
+          <li>Freivalds, A. y Niebel, B. <em>Ingeniería industrial de Niebel: métodos, estándares y diseño del trabajo</em>. México: McGraw-Hill.</li>
+          <li>Heizer, J. y Render, B. <em>Principios de administración de operaciones</em>. México: Pearson.</li>
+          <li>Montgomery, D. C. <em>Control estadístico de la calidad</em>. México: Limusa Wiley.</li>
+          <li>Ishikawa, K. <em>¿Qué es el control total de calidad?</em> Bogotá: Norma.</li>
+          <li>Nakajima, S. (1988). <em>Introduction to TPM: Total Productive Maintenance</em>. Cambridge: Productivity Press.</li>
+        </ol>
+        <h3>Optimización, seguridad y ambiente</h3>
+        <ol class="fuentes">
+          <li>Dantzig, G. B. (1963). <em>Linear Programming and Extensions</em>. Princeton University Press.</li>
+          <li>Hillier, F. S. y Lieberman, G. J. <em>Introducción a la investigación de operaciones</em>. México: McGraw-Hill.</li>
+          <li>Peters, M. S., Timmerhaus, K. D. y West, R. E. (2003). <em>Plant Design and Economics for Chemical Engineers</em>, 5.ª ed. Nueva York: McGraw-Hill.</li>
+          <li>Kletz, T. (1998). <em>Process Plants: A Handbook for Inherently Safer Design</em>. Filadelfia: Taylor &amp; Francis.</li>
+          <li>Center for Chemical Process Safety (2001). <em>Layer of Protection Analysis: Simplified Process Risk Assessment</em>. Nueva York: AIChE.</li>
+          <li>Reason, J. (1997). <em>Managing the Risks of Organizational Accidents</em>. Aldershot: Ashgate.</li>
+          <li>U.S. Chemical Safety and Hazard Investigation Board (2007). <em>Investigation Report: Refinery Explosion and Fire, BP Texas City, Texas, March 23, 2005</em>.</li>
+          <li>Cullen, W. D. (1990). <em>The Public Inquiry into the Piper Alpha Disaster</em>. Londres: HMSO.</li>
+          <li>NIOSH. <em>Hierarchy of Controls</em>. Centers for Disease Control and Prevention.</li>
+          <li>Comisión Mundial sobre el Medio Ambiente y el Desarrollo (1987). <em>Nuestro futuro común</em>. Naciones Unidas.</li>
+          <li>Anastas, P. T. y Warner, J. C. (1998). <em>Green Chemistry: Theory and Practice</em>. Oxford University Press.</li>
+          <li>Trost, B. M. (1991). The atom economy: a search for synthetic efficiency. <em>Science</em>, 254, 1471-1477.</li>
+          <li>Sheldon, R. A. (2000). Atom efficiency and catalysis in organic synthesis. <em>Pure and Applied Chemistry</em>, 72(7), 1233-1246.</li>
+        </ol>
+        <h3>Normas colombianas</h3>
+        <ol class="fuentes">
+          <li>Ley 842 de 2003, por la cual se reglamenta el ejercicio de la ingeniería y se adopta el Código de Ética Profesional.</li>
+          <li>Decreto 1072 de 2015, Decreto Único Reglamentario del Sector Trabajo (libro 2, parte 2, título 4, capítulo 6: SG-SST).</li>
+          <li>Resolución 631 de 2015, parámetros y valores límite en los vertimientos puntuales.</li>
+        </ol>
+      </div>
+    </details>
+    <details class="faq">
+      <summary>Fotografías, videos y mapa</summary>
+      <div>
+        <p>Casi todas las fotografías vienen de Wikimedia Commons y se cargan desde allí. Dos están guardadas en la carpeta de la página: la de La Nubia, que viene de ArchDaily, y la de la fábrica de café soluble de 1918, que recortamos para quitarle el marco de la ficha del archivo. Los diagramas, las ilustraciones, los íconos y las gráficas se hicieron para esta página (ver «Cómo se hizo la página»). El mapa de la página 1 es de Google Maps.</p>
+        <ul class="creditos" id="creditos"></ul>
+        <p>Los videos son de YouTube y solo se cargan si se tocan:</p>
+        <ul class="creditos">
+          <li>Página 1: «Sede Manizales UNAL», canal Manizales UNAL. <a href="https://www.youtube.com/watch?v=0QWqS4cU93E">Ver</a></li>
+          <li>Página 2: «Café liofilizado por Buencafé», canal Buencafé. <a href="https://www.youtube.com/watch?v=o5hbQmI28aA">Ver</a></li>
+          <li>Página 3: «100 Years of the Moving Assembly Line in 100 Seconds», Ford, canal AutoMotoTV. <a href="https://www.youtube.com/watch?v=mhDQovSNn-I">Ver</a></li>
+          <li>Página 4: «Avances en materia de sostenibilidad», canal Buencafé. <a href="https://www.youtube.com/watch?v=YQIWYy_a1DA">Ver</a></li>
+        </ul>
+      </div>
+    </details>
+    <details class="faq">
+      <summary>Cómo se hizo la página</summary>
+      <div>
+        <p>Está escrita a mano en HTML, CSS y JavaScript, sin bibliotecas, y publicada en GitHub Pages. Las tipografías son Big Shoulders e Instrument Sans, con licencia SIL Open Font License 1.1. La página no recoge datos: solo recuerda, en el navegador de quien visita, qué páginas ya abrió.</p>
+        <p>Para programar los laboratorios, dibujar los diagramas e íconos y redactar parte de los textos usamos como asistente a Claude, un modelo de inteligencia artificial de Anthropic. Los contenidos se basan en las fuentes de arriba y los revisamos como grupo. Las cifras marcadas como ilustrativas sirven para mostrar una idea y no describen una planta real.</p>
+      </div>
+    </details>
+    <details class="faq">
+      <summary>Cómo citar esta página</summary>
+      <div>
+        <p class="citar">Grupo 2, Humanidades para Ingeniería (2026). <em>Humanidades: conceptos básicos de Ingeniería Química e Industrial</em>. Universidad Nacional de Colombia, Sede Manizales. <span id="url-actual"></span></p>
+      </div>
+    </details>
+  </section>
+
+  <div id="cierre"></div>
+</main>
+
+<footer id="pie"></footer>
+<script src="js/imagenes.js"></script>
+<script src="js/sitio.js"></script>
+<script src="js/integracion.js"></script>
+</body>
+</html>
